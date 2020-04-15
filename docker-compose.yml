@@ -9,33 +9,46 @@ services:
     env_file:
       - 'env'
 
-  api:
-    build: ./showoff-api
-    command: /bin/bash -c "bundle exec rails s -p 3001 -b '0.0.0.0'"
+  # api:
+  #   build: ./showoff-api
+  #   command: /bin/bash -c "bundle exec rails s -p 3001 -b '0.0.0.0'"
+  #   volumes:
+  #       - ./showoff-api:/app
+  #   ports:
+  #       - "3001:3001"
+  #   env_file:
+  #       - 'env'
+  #   depends_on:
+  #       - postgres
+  #   tty: true
+  #   stdin_open: true
+
+  # front:
+  #   build: ./showoff-front
+  #   command: /bin/bash -c "yarn start"
+  #   volumes:
+  #       - ./showoff-front:/app
+  #   ports:
+  #       - "3000:3000"
+  #   env_file:
+  #       - 'env'
+  #   depends_on:
+  #       - api
+  #   tty: true
+  #   stdin_open: true
+
+  app:
+    build: ./showoff
+    command: /bin/bash -c "bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
-        - ./showoff-api:/app
+        - ./showoff:/app
     ports:
-        - "3001:3001"
+        - "3000:3000"
     env_file:
         - 'env'
     depends_on:
         - postgres
     tty: true
     stdin_open: true
-
-  front:
-    build: ./showoff-front
-    command: /bin/bash -c "yarn start"
-    volumes:
-        - ./showoff-front:/app
-    ports:
-        - "3000:3000"
-    env_file:
-        - 'env'
-    depends_on:
-        - api
-    tty: true
-    stdin_open: true
-
 volumes:
   postgres:
