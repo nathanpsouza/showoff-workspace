@@ -34,7 +34,7 @@ docker-compose run app bash -c 'yarn && rails db:create db:migrate'
 ### Run RSpec tests
 
 ```
-docker-compose run app bash -c 'rails db:create db:migrate'
+docker-compose run app bash -c 'rspec spec'
 ```
 
 ### Start application
